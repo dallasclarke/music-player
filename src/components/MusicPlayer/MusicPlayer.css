@@ -2,5 +2,21 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    
+    justify-content: space-between;    
+}
+
+.player-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    width: 40%; 
+    cursor: pointer;
+}
+
+.timer-control {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
 }

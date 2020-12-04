@@ -10,9 +10,20 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 function MusicPlayer() {
+
+  const timer = (time) => {
+    return (
+      Math.floor(time / 60) + ":" + ("0" + Math.floor(time % 60)).slice(-2)
+    );
+  };
+
+  
+
+
+
   return (
     <div className="player">
-      <div className="time-control">
+      <div className="timer-control">
         <p>Start Time</p>
         <input type="range" />
         <p>End Time</p>
