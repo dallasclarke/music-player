@@ -1,11 +1,13 @@
 import React from "react";
-import {SpotifyApiContext} from "react-spotify-api";
+import { SpotifyApiContext } from "react-spotify-api";
 import cookie from "react-cookies";
+import SpotifyPlayer from "react-spotify-web-playback";
 
 import "./App.css";
 import MusicPlayer from "./components/MusicPlayer/MusicPlayer";
 import CurrentSong from "./components/CurrentSong/CurrentSong";
-import SongList from "./components/SongList/SongList"
+import SongList from "./components/SongList/SongList";
+import SpotifyWebPlayer from "react-spotify-web-playback";
 
 export const authEndpoint = "https://accounts.spotify.com/authorize";
 
@@ -15,6 +17,9 @@ const scopes = [
   "user-read-currently-playing",
   "user-read-playback-state",
   "user-read-email",
+  "user-read-private",
+  "streaming",
+  "user-modify-playback-state",
 ];
 
 const hash = window.location.hash
@@ -30,33 +35,32 @@ const hash = window.location.hash
 window.location.hash = "";
 
 const App = () => {
-  const [token, setToken] = React.useState()
-  const [song, setSong] = React.useState()
+  const [token, setToken] = React.useState();
+  const [song, setSong] = React.useState();
 
   React.useEffect(() => {
     let _token = cookie.load("token");
     if (hash.access_token) {
-      _token = hash.access_token
+      _token = hash.access_token;
     }
 
     if (_token) {
-      setToken(_token)
-      cookie.save('token', _token, {path: '/'})
-
+      setToken(_token);
+      cookie.save("token", _token, { path: "/" });
     }
-  }, [hash.access_token]) 
-// console.log(token)
-// console.log(song)
+  }, [hash.access_token]);
+  // console.log(token)
+  // console.log(song)
   return (
     <>
       {token ? (
         <div className="app">
           <SpotifyApiContext.Provider value={token}>
             <>
-              <div styles={{display: "block", float: "left", width: "25%" }}>
+              <div styles={{ display: "block", float: "left", width: "25%" }}>
                 <SongList setSong={setSong} />
               </div>
-              <div styles={{display: "block", float: "right", width: "70%" }}>
+              <div styles={{ display: "block", float: "right", width: "70%" }}>
                 <CurrentSong id={song} />
                 <MusicPlayer id={song} />
               </div>
@@ -73,6 +77,7 @@ const App = () => {
         </a>
       )}
     </>
-  );};
+  );
+};
 
 export default App;
