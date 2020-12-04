@@ -1,12 +1,13 @@
 import React from "react";
 
+import "./App.css";
 import MusicPlayer from "./components/MusicPlayer/MusicPlayer";
 import CurrentSong from "./components/CurrentSong/CurrentSong";
 
 
 function App() {
   return (
-    <div className="App">
+    <div className="app">
       <CurrentSong />
       <MusicPlayer />
     </div>

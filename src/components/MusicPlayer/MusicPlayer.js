@@ -1,4 +1,5 @@
 import React from "react";
+import "./MusicPlayer.css"
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -16,7 +17,7 @@ function MusicPlayer() {
         <input type="range" />
         <p>End Time</p>
       </div>
-      <div className="play-control">
+      <div className="player-controls">
         <FontAwesomeIcon className="back-button" icon={faFastBackward} size="3x" />
         <FontAwesomeIcon className="play-button" icon={faPlayCircle} size="3x" />
         <FontAwesomeIcon className="forward-button" icon={faFastForward} size="3x" />
