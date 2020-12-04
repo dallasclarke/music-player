@@ -1,5 +1,6 @@
 import React from "react";
 import "./MusicPlayer.css"
+import {Track, } from "react-spotify-api"
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -9,7 +10,11 @@ import {
   faFastForward,
 } from "@fortawesome/free-solid-svg-icons";
 
-function MusicPlayer() {
+function MusicPlayer({id}) {
+  const [songInfo, setSongInfo] = React.useState({
+    currentTime: 0,
+    duration: 0,
+  });
 
   const timer = (time) => {
     return (
@@ -17,24 +22,47 @@ function MusicPlayer() {
     );
   };
 
-  
-
-
-
   return (
-    <div className="player">
-      <div className="timer-control">
-        <p>Start Time</p>
-        <input type="range" />
-        <p>End Time</p>
-      </div>
-      <div className="player-controls">
-        <FontAwesomeIcon className="back-button" icon={faFastBackward} size="3x" />
-        <FontAwesomeIcon className="play-button" icon={faPlayCircle} size="3x" />
-        <FontAwesomeIcon className="forward-button" icon={faFastForward} size="3x" />
-      </div>
-    </div>
+    <Track id={id}>
+      {({ data, loading, error }) => {
+          console.log(data);
+        if (loading || !data) {
+          return <div>Loading</div>;
+        }
+
+        return (
+          <div className="player">
+            <div className="timer-control">
+              <p>Start Time</p>
+              <input type="range" />
+              <p>{data?.duration_ms}</p>
+            </div>
+            <div className="player-controls">
+              <FontAwesomeIcon
+                className="back-button"
+                icon={faFastBackward}
+                size="3x"
+              />
+              <FontAwesomeIcon
+                className="play-button"
+                icon={faPlayCircle}
+                size="3x"
+              />
+              <FontAwesomeIcon
+                className="forward-button"
+                icon={faFastForward}
+                size="3x"
+              />
+            </div>
+          </div>
+        );
+      }}
+    </Track>
   );
+
+
+
+  
 }
 
 export default MusicPlayer;
