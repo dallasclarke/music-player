@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useRef} from "react";
 import "./MusicPlayer.css";
 import { Track } from "react-spotify-api";
 
@@ -12,10 +12,16 @@ import {
 
 
 function MusicPlayer({ id }) {
+  const audioRef = useRef(null);
   const [songInfo, setSongInfo] = React.useState({
     currentTime: 0,
     duration: 0,
   });
+
+  const playSong = () => {
+    // console.log(audioRef)
+    audioRef.current.play();
+  }
 
   const timer = (time) => {
     return (
@@ -55,6 +61,7 @@ function MusicPlayer({ id }) {
                 size="3x"
               />
             </div>
+            <audio ref={audioRef} src={data.preview_url}></audio>
           </div>
         );
       }}

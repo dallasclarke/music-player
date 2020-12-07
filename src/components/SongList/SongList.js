@@ -1,6 +1,9 @@
 import React from "react";
 import { Playlist } from "react-spotify-api";
 
+import "./SongList.css";
+import VirtualizedList from "./ListStyling";
+
 const SongList = ({ setSong }) => {
   const trackList = (list) => {
     //   console.log(list);

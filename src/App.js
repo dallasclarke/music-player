@@ -1,13 +1,15 @@
 import React from "react";
 import { SpotifyApiContext } from "react-spotify-api";
+import { makeStyles } from "@material-ui/core/styles";
+import {Grid, Paper} from "@material-ui/core";
 import cookie from "react-cookies";
-import SpotifyPlayer from "react-spotify-web-playback";
 
 import "./App.css";
 import MusicPlayer from "./components/MusicPlayer/MusicPlayer";
 import CurrentSong from "./components/CurrentSong/CurrentSong";
 import SongList from "./components/SongList/SongList";
-import SpotifyWebPlayer from "react-spotify-web-playback";
+import VirtualizedList from './components/SongList/ListStyling';
+import defaultSong from "./utils";
 
 export const authEndpoint = "https://accounts.spotify.com/authorize";
 
@@ -34,7 +36,22 @@ const hash = window.location.hash
   }, {});
 window.location.hash = "";
 
+const useStyles = makeStyles((theme) => ({
+  grid: {
+    width: '100%',
+    margin: '0px'
+  },
+  paper: {
+    textAlign: 'left',
+    color: theme.palette.text.secondary,
+    background: theme.palette.success.light,
+  }
+}));
+
+
 const App = () => {
+  const classes = useStyles();
+
   const [token, setToken] = React.useState();
   const [song, setSong] = React.useState();
 
@@ -57,13 +74,15 @@ const App = () => {
         <div className="app">
           <SpotifyApiContext.Provider value={token}>
             <>
-              <div styles={{ display: "block", float: "left", width: "25%" }}>
+            <Grid container spacing={5} className={classes.grid}>
+              <div>
                 <SongList setSong={setSong} />
               </div>
-              <div styles={{ display: "block", float: "right", width: "70%" }}>
+              <div>
                 <CurrentSong id={song} />
                 <MusicPlayer id={song} />
               </div>
+              </Grid>
             </>
           </SpotifyApiContext.Provider>
         </div>
