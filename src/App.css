@@ -5,4 +5,15 @@ body {
   
 } */
 
-
+a {
+  display: grid;
+  place-content: center;
+  margin-top: 50vh;
+  font-size: 40px;
+  text-decoration: none;
+  cursor: pointer;
+  color: white;
+  border: solid;
+  border-radius: 75px;
+  background: black;
+}

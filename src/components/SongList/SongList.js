@@ -15,12 +15,14 @@ const SongList = ({ setSong }) => {
   };
 
   return (
-    <Playlist id={"37i9dQZEVXbMDoHDwVN2tF "}>
-      {({ data, loading, error }) => {
-        // console.log(data)
-        return data ? trackList(data.tracks.items) : <div>no data</div>;
-      }}
-    </Playlist>
+    <div className="songs">
+      <Playlist id={"37i9dQZEVXbMDoHDwVN2tF "}>
+        {({ data, loading, error }) => {
+          // console.log(data)
+          return data ? trackList(data.tracks.items) : <div>no data</div>;
+        }}
+      </Playlist>
+    </div>
   );
 };
 

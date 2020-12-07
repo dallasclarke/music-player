@@ -1,0 +1,12 @@
+.songs {
+    display: flex;
+    flex-direction: column;
+    background-color: black;
+    color: white;
+    font-weight: 800;
+    width: 35%;
+    cursor: pointer;
+  
+}
+
+
