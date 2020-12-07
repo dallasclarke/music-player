@@ -54,6 +54,7 @@ const App = () => {
 
   const [token, setToken] = React.useState();
   const [song, setSong] = React.useState();
+  const [isPlaying, setIsPlaying] = React.useState(false);
 
   React.useEffect(() => {
     let _token = cookie.load("token");
@@ -80,7 +81,11 @@ const App = () => {
               </div>
               <div>
                 <CurrentSong id={song} />
-                <MusicPlayer id={song} />
+                <MusicPlayer 
+                id={song} 
+                setIsPlaying={setIsPlaying}
+                isPlaying={isPlaying}
+                />
               </div>
               </Grid>
             </>

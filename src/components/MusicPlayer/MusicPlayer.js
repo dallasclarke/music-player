@@ -11,23 +11,34 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 
-function MusicPlayer({ id }) {
+function MusicPlayer({ id, isPlaying, setIsPlaying }) {
   const audioRef = useRef(null);
   const [songInfo, setSongInfo] = React.useState({
     currentTime: 0,
     duration: 0,
   });
 
+  const playSongHandler = () => {
+    if (isPlaying) {
+      audioRef.current.pause();
+      setIsPlaying(!isPlaying);
+    } else {
+      audioRef.current.play();
+      setIsPlaying(!isPlaying);
+    }
+  };
+
   const playSong = () => {
     // console.log(audioRef)
     audioRef.current.play();
   }
 
-  const timer = (time) => {
-    return (
-      Math.floor(time / 60) + ":" + ("0" + Math.floor(time % 60)).slice(-2)
-    );
-  };
+  const timeConverter = (ms) => {
+    const minutes = Math.floor(ms / 60000);
+    const seconds = ((ms % 60000) / 1000).toFixed(0);
+    
+    return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+  }
 
   return (
     <Track id={id}>
@@ -42,7 +53,7 @@ function MusicPlayer({ id }) {
             <div className="timer-control">
               <p>Start Time</p>
               <input type="range" />
-              <p>{data?.duration_ms}</p>
+              <p>{timeConverter(data?.duration_ms)}</p>
             </div>
             <div className="player-controls">
               <FontAwesomeIcon
@@ -52,7 +63,8 @@ function MusicPlayer({ id }) {
               />
               <FontAwesomeIcon
                 className="play-button"
-                icon={faPlayCircle}
+                onClick={playSongHandler}
+                icon={isPlaying ? faPauseCircle : faPlayCircle}
                 size="3x"
               />
               <FontAwesomeIcon
